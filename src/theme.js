@@ -1,10 +1,11 @@
 export const theme = {
     colors: {
-        primary: "#e76f51",
-        secondary: "#5a189a",
+        primary: "#f72585",
+        secondary: "#12cfe5 ",
         font: "#6c757d",
         greyLigth: "#ced4da",
         greyDark: "#264653",
-        shadow: "0 6px 15px rgba(36, 37, 38, 0.08)",
+        shadow1: "2px 2px 4px rgba(0, 0, 0, 0.4)",
+        shadow2: "0 6px 15px rgba(36, 37, 38, 0.08)",
     },
 };

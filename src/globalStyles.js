@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
   * {
   box-sizing: border-box;
   margin: 0;
@@ -15,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3 {
-    font-weight: 500
+    font-weight: 500;
   }
 
   a {

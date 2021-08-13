@@ -13,7 +13,7 @@ const PlayArea = ({ cards }) => {
             </GameInfo>
             <GameBoard>
                 {cards.map((card, i) => {
-                    return <Card key={i} icon={card.icon} index={card.id} />;
+                    return <Card key={i} icon={card.icon} index={card.name} />;
                 })}
             </GameBoard>
         </PlayWrapper>
