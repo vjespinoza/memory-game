@@ -1,7 +1,7 @@
 import { PlayWrapper, GameInfo, GameBoard } from "./playArea.elements";
 import Card from "../card/card";
 
-const PlayArea = ({ cards }) => {
+const PlayArea = ({ cards, handleGetPairs }) => {
     return (
         <PlayWrapper>
             <GameInfo>
@@ -13,7 +13,15 @@ const PlayArea = ({ cards }) => {
             </GameInfo>
             <GameBoard>
                 {cards.map((card, i) => {
-                    return <Card key={i} icon={card.icon} index={card.name} />;
+                    return (
+                        <Card
+                            key={i}
+                            icon={card.icon}
+                            index={card.name}
+                            tag={card.tag}
+                            handleGetPairs={handleGetPairs}
+                        />
+                    );
                 })}
             </GameBoard>
         </PlayWrapper>

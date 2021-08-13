@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { CardWrapper, CardFront, CardBack } from "./card.elements";
-import {} from "@styled-icons/remix-line";
 
-const Card = ({ icon, index }) => {
+const Card = ({ icon, index, tag, handleGetPairs }) => {
     const [flipCard, setFlipCard] = useState(true);
 
     const handleFlipcard = () => {
@@ -10,7 +9,15 @@ const Card = ({ icon, index }) => {
     };
 
     return (
-        <CardWrapper id={index} flipCard={flipCard} onClick={handleFlipcard}>
+        <CardWrapper
+            id={index}
+            flipCard={flipCard}
+            data-tag={tag}
+            onClick={(e) => {
+                handleFlipcard();
+                handleGetPairs(e);
+            }}
+        >
             <CardFront>{icon}</CardFront>
             <CardBack>&#129299;</CardBack>
         </CardWrapper>
