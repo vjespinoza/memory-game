@@ -1,9 +1,7 @@
+import Dashboard from "./components/dashboard/dashboard";
+
 function App() {
-    return (
-        <div>
-            <h1>Memory Game</h1>
-        </div>
-    );
+    return <Dashboard />;
 }
 
 export default App;
