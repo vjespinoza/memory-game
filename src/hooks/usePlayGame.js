@@ -1,50 +1,40 @@
 import { useState, useEffect } from "react";
 
 const usePlayGame = () => {
-    const [currentPair, setCurrentPair] = useState({
-        card1: "",
-        card2: "",
-    });
-    const [history, setHistory] = useState([]); // History of current pairs
+    // Cards to be matched
+    const [currentPair, setCurrentPair] = useState({});
+    // History of current pairs
+    const [history, setHistory] = useState([]);
 
     const handleGetPairs = (e) => {
-        if (currentPair.card1 === "") {
+        if (!currentPair.cards) {
             setCurrentPair({
                 ...currentPair,
-                card1: e.currentTarget.dataset.tag,
+                cards: { ...currentPair.cards, a: e.currentTarget.dataset.tag },
             });
+            e.currentTarget.setAttribute("data-visible", true);
         } else {
             setCurrentPair({
                 ...currentPair,
-                card2: e.currentTarget.dataset.tag,
+                cards: { ...currentPair.cards, b: e.currentTarget.dataset.tag },
             });
+            e.currentTarget.setAttribute("data-visible", true);
+
+            handleBlockCards(e);
         }
     };
 
-    const checkPairMatch = () => {
-        if (history.length > 0) {
-            console.log(history[history.length - 1]);
-            console.log(history[history.length - 1].match);
-        }
+    const handleBlockCards = (e) => {
+        let notVisibles = Array.from(document.querySelectorAll("[id^='card']"));
+        notVisibles.map((x) => {
+            if (!x.hasAttribute("data-visible")) {
+                console.log("qqq");
+                x.setAttribute("data-hidden", true);
+            }
+        });
     };
 
-    useEffect(() => {
-        if (currentPair.card1 === currentPair.card2) {
-            if (!Object.values(currentPair).includes("")) {
-                setHistory([...history, { ...currentPair, match: true }]);
-            }
-        } else {
-            if (!Object.values(currentPair).includes("")) {
-                setHistory([...history, { ...currentPair, match: false }]);
-            }
-        }
-    }, [currentPair]);
-
-    useEffect(() => {
-        checkPairMatch();
-    }, [history]);
-
-    return { handleGetPairs };
+    return { handleGetPairs, currentPair };
 };
 
 export default usePlayGame;

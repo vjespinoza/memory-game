@@ -2,10 +2,14 @@ import { useState } from "react";
 import { CardWrapper, CardFront, CardBack } from "./card.elements";
 
 const Card = ({ icon, index, tag, handleGetPairs }) => {
-    const [flipCard, setFlipCard] = useState(false);
+    const [flipCard, setFlipCard] = useState(true);
+    // const [visibleCards, setVisibleCards] = useState([]);
 
-    const handleFlipcard = () => {
-        setFlipCard((flipCard) => !flipCard);
+    const handleClick = (e) => {
+        if (!e.currentTarget.dataset.hidden) {
+            setFlipCard((flipCard) => !flipCard);
+            handleGetPairs(e);
+        }
     };
 
     return (
@@ -14,8 +18,7 @@ const Card = ({ icon, index, tag, handleGetPairs }) => {
             flipCard={flipCard}
             data-tag={tag}
             onClick={(e) => {
-                handleFlipcard();
-                handleGetPairs(e);
+                handleClick(e);
             }}
         >
             <CardFront>{icon}</CardFront>

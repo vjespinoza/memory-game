@@ -13,7 +13,8 @@ const Dashboard = () => {
     const [cards, setCards] = useState([]);
     const [sortTrigger, setSortTrigger] = useState(false);
 
-    const { handleGetPairs } = usePlayGame();
+    const { handleGetPairs, currentPair } = usePlayGame();
+    // console.log(currentPair);
 
     const handleSortTrigger = () => {
         setSortTrigger(true);
