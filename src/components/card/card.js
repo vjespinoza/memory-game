@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CardWrapper, CardFront, CardBack } from "./card.elements";
 
 const Card = ({ icon, index, tag, handleGetPairs }) => {
-    const [flipCard, setFlipCard] = useState(true);
+    const [flipCard, setFlipCard] = useState(false);
 
     const handleFlipcard = () => {
         setFlipCard((flipCard) => !flipCard);

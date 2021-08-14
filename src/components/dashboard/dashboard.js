@@ -1,27 +1,34 @@
-import { useState } from "react";
-import PlayArea from "../playArea/playArea";
-import { DashboardWrapper, Action } from "./dashboard.elements";
+import { useState, useEffect } from "react";
+//Import cards data
 import cardData from "../../data/card-data";
-import { sortCards } from "../../helpers";
+//Import components
+import PlayArea from "../playArea/playArea";
 import { Button } from "../globals/button/button";
+import { DashboardWrapper, Action } from "./dashboard.elements";
+//Import helpers functions and custom hooks
+import { sortCards } from "../../helpers";
 import usePlayGame from "./../../hooks/usePlayGame";
 
 const Dashboard = () => {
-    const [cards, setCards] = useState(cardData);
-    const [newSort, setNewSort] = useState("");
+    const [cards, setCards] = useState([]);
+    const [sortTrigger, setSortTrigger] = useState(false);
 
     const { handleGetPairs } = usePlayGame();
 
-    const handleSortCards = () => {
-        setCards(sortCards(cards));
-        setNewSort(cards[0].name);
+    const handleSortTrigger = () => {
+        setSortTrigger(true);
     };
+
+    useEffect(() => {
+        !sortTrigger ? setCards(cardData) : setCards(sortCards(cardData));
+        setSortTrigger(false);
+    }, [sortTrigger]);
 
     return (
         <DashboardWrapper>
             <PlayArea cards={cards} handleGetPairs={handleGetPairs} />
             <Action>
-                <Button primary onClick={handleSortCards}>
+                <Button primary onClick={handleSortTrigger}>
                     New Game
                 </Button>
                 <Button>Exit Game</Button>
