@@ -48,14 +48,54 @@ const usePlayGame = () => {
                     match: match,
                 },
             ]);
+            setCurrentPair({});
         }
     };
 
     const handlePlayActions = () => {
-        // 1) If history[history.length - 1].match === true
-        // 1.1) remove data-visible and data.hidden
-        // 1.2) add opacity 0 to matched cards
-        // **************************************
+        let attributes = Array.from(document.querySelectorAll("[id^='card']"));
+
+        const removeAttribute = () => {
+            attributes.map((x) => {
+                return x.removeAttribute("data-hidden");
+            });
+        };
+
+        const removePairs = () => {
+            let styles = `
+            opacity: 0;
+            transition: opacity ease-in-out 200ms;
+            transition-delay: 1000ms
+            `;
+
+            attributes.map((x) => {
+                if (x.hasAttribute("data-visible")) {
+                    x.setAttribute("style", styles);
+                }
+                return true;
+            });
+        };
+
+        const handleNoMatch = () => {
+            setTimeout(() => {
+                attributes.map((x) => {
+                    if (x.hasAttribute("data-visible")) {
+                        x.setAttribute("flipCard", false);
+                    }
+                });
+            }, 1000);
+
+            return true;
+        };
+
+        if (history[history.length - 1].match === true) {
+            removeAttribute();
+            removePairs();
+        } else {
+            removeAttribute();
+            handleNoMatch();
+        }
+
         // 2) If history[history.length - 1].match === false
         // 2.1) remove data-visible and data.hidden
         // 2.2) setTimeout(() => {setFlipCard(false)}, 500ms)
@@ -69,6 +109,10 @@ const usePlayGame = () => {
     useEffect(() => {
         currentPair.cards && handleMatchHistory();
     }, [currentPair]);
+
+    useEffect(() => {
+        history.length > 0 && handlePlayActions();
+    }, [history]);
 
     return { handleGetPairs, currentPair };
 };

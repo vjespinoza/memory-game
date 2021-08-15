@@ -3,7 +3,6 @@ import { CardWrapper, CardFront, CardBack } from "./card.elements";
 
 const Card = ({ icon, index, tag, handleGetPairs }) => {
     const [flipCard, setFlipCard] = useState(true);
-    // const [visibleCards, setVisibleCards] = useState([]);
 
     const handleClick = (e) => {
         if (!e.currentTarget.dataset.hidden) {
