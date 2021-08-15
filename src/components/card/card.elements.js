@@ -10,8 +10,8 @@ export const CardWrapper = styled.article`
     transform-style: preserve-3d;
     -webkit-transition: -webkit-transform 1s;
     transition: transform 1s;
-    -webkit-transform: ${(props) => (props.flipCard ? "rotateY(180deg)" : "rotateY(0deg)")};
-    transform: ${(props) => (props.flipCard ? "rotateY(180deg)" : "rotateY(0deg)")};
+    -webkit-transform: ${(props) => (props.flipcard ? "rotateY(180deg)" : "rotateY(0deg)")};
+    transform: ${(props) => (props.flipcard ? "rotateY(180deg)" : "rotateY(0deg)")};
 `;
 
 export const CardFront = styled.div`

@@ -19,11 +19,11 @@ const usePlayGame = () => {
                 cards: { ...currentPair.cards, b: e.currentTarget.dataset.tag },
             });
             e.currentTarget.setAttribute("data-visible", true); //May not be necessary
-            handleBlockCards(e);
+            handleBlockedCards(e);
         }
     };
 
-    const handleBlockCards = (e) => {
+    const handleBlockedCards = (e) => {
         let notVisibles = Array.from(document.querySelectorAll("[id^='card']"));
         notVisibles.map((x) => {
             if (!x.hasAttribute("data-visible")) {
@@ -57,14 +57,15 @@ const usePlayGame = () => {
 
         const removeAttribute = () => {
             attributes.map((x) => {
-                return x.removeAttribute("data-hidden");
+                return x.removeAttribute("data-hidden") & x.removeAttribute("data-visible");
             });
         };
 
         const removePairs = () => {
             let styles = `
             opacity: 0;
-            transition: opacity ease-in-out 200ms;
+            visibility: hidden;
+            transition: all ease-in-out 200ms;
             transition-delay: 1000ms
             `;
 
@@ -77,23 +78,20 @@ const usePlayGame = () => {
         };
 
         const handleNoMatch = () => {
-            setTimeout(() => {
-                attributes.map((x) => {
-                    if (x.hasAttribute("data-visible")) {
-                        x.setAttribute("flipCard", false);
-                    }
-                });
-            }, 1000);
-
-            return true;
+            attributes.map((x) => {
+                if (x.hasAttribute("data-visible")) {
+                    x.setAttribute("unflip", true);
+                }
+                return true;
+            });
         };
 
         if (history[history.length - 1].match === true) {
-            removeAttribute();
             removePairs();
-        } else {
             removeAttribute();
+        } else {
             handleNoMatch();
+            removeAttribute();
         }
 
         // 2) If history[history.length - 1].match === false
