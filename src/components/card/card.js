@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CardWrapper, CardFront, CardBack } from "./card.elements";
 
 const Card = ({ icon, index, tag, handleGetPairs }) => {
     const [flipCard, setFlipCard] = useState(true);
-    const [unflip, setUnflip] = useState(false);
 
     const handleClick = (e) => {
         if (!e.currentTarget.dataset.hidden) {
@@ -12,22 +11,18 @@ const Card = ({ icon, index, tag, handleGetPairs }) => {
         }
     };
 
-    const handleUnflip = () => {
+    (function handleUnflip() {
         let attributes = Array.from(document.querySelectorAll("[id^='card']"));
 
-        setTimeout(() => {
-            attributes.map((x) => {
+        attributes.map((x) => {
+            setTimeout(() => {
                 if (x.hasAttribute("unflip")) {
-                    setUnflip(true);
+                    setFlipCard(true);
                 }
-                return true;
-            });
-        }, 1000);
-    };
-
-    useEffect(() => {
-        unflip === true && setFlipCard(false);
-    }, [unflip]);
+            }, 3000);
+            return true;
+        });
+    })();
 
     return (
         <CardWrapper
@@ -36,7 +31,6 @@ const Card = ({ icon, index, tag, handleGetPairs }) => {
             data-tag={tag}
             onClick={(e) => {
                 handleClick(e);
-                handleUnflip();
             }}
         >
             <CardFront>{icon}</CardFront>

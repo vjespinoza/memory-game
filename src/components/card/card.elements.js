@@ -5,7 +5,7 @@ export const CardWrapper = styled.article`
     cursor: pointer;
     position: relative;
     width: 75px;
-    height: 90px;
+    height: ${({ unflip }) => (unflip ? "140px" : "90px")};
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-transition: -webkit-transform 1s;

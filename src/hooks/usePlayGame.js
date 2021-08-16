@@ -14,12 +14,14 @@ const usePlayGame = () => {
             });
             e.currentTarget.setAttribute("data-visible", true); //May not be necessary
         } else {
-            setCurrentPair({
-                ...currentPair,
-                cards: { ...currentPair.cards, b: e.currentTarget.dataset.tag },
-            });
-            e.currentTarget.setAttribute("data-visible", true); //May not be necessary
-            handleBlockedCards(e);
+            if (!e.currentTarget.hasAttribute("data-visible")) {
+                setCurrentPair({
+                    ...currentPair,
+                    cards: { ...currentPair.cards, b: e.currentTarget.dataset.tag },
+                });
+                e.currentTarget.setAttribute("data-visible", true); //May not be necessary
+                handleBlockedCards(e);
+            }
         }
     };
 
@@ -29,7 +31,6 @@ const usePlayGame = () => {
             if (!x.hasAttribute("data-visible")) {
                 x.setAttribute("data-hidden", true);
             }
-
             return true;
         });
     };
@@ -53,11 +54,14 @@ const usePlayGame = () => {
     };
 
     const handlePlayActions = () => {
-        let attributes = Array.from(document.querySelectorAll("[id^='card']"));
+        let cards = Array.from(document.querySelectorAll("[id^='card']"));
 
         const removeAttribute = () => {
-            attributes.map((x) => {
-                return x.removeAttribute("data-hidden") & x.removeAttribute("data-visible");
+            cards.map((x) => {
+                x.removeAttribute("data-hidden");
+                x.removeAttribute("data-visible");
+                x.removeAttribute("unflip");
+                return true;
             });
         };
 
@@ -69,7 +73,7 @@ const usePlayGame = () => {
             transition-delay: 1000ms
             `;
 
-            attributes.map((x) => {
+            cards.map((x) => {
                 if (x.hasAttribute("data-visible")) {
                     x.setAttribute("style", styles);
                 }
@@ -78,7 +82,7 @@ const usePlayGame = () => {
         };
 
         const handleNoMatch = () => {
-            attributes.map((x) => {
+            cards.map((x) => {
                 if (x.hasAttribute("data-visible")) {
                     x.setAttribute("unflip", true);
                 }
@@ -91,12 +95,11 @@ const usePlayGame = () => {
             removeAttribute();
         } else {
             handleNoMatch();
-            removeAttribute();
+            setTimeout(() => {
+                removeAttribute();
+            }, 3000);
         }
 
-        // 2) If history[history.length - 1].match === false
-        // 2.1) remove data-visible and data.hidden
-        // 2.2) setTimeout(() => {setFlipCard(false)}, 500ms)
         // **************************************
         // 3) Attempts => history.lentgh
         // **************************************
