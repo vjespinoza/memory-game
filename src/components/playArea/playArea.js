@@ -1,7 +1,7 @@
 import { PlayWrapper, GameInfo, GameBoard } from "./playArea.elements";
 import Card from "../card/card";
 
-const PlayArea = ({ cards, handleGetPairs }) => {
+const PlayArea = ({ cards, handleGetPairs, history }) => {
     return (
         <PlayWrapper>
             <GameInfo>
@@ -20,6 +20,7 @@ const PlayArea = ({ cards, handleGetPairs }) => {
                             index={card.name}
                             tag={card.tag}
                             handleGetPairs={handleGetPairs}
+                            history={history}
                         />
                     );
                 })}

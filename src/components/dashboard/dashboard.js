@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [cards, setCards] = useState([]);
     const [sortTrigger, setSortTrigger] = useState(false);
 
-    const { handleGetPairs } = usePlayGame();
+    const { handleGetPairs, history } = usePlayGame();
 
     const handleSortTrigger = () => {
         setSortTrigger(true);
@@ -26,7 +26,11 @@ const Dashboard = () => {
 
     return (
         <DashboardWrapper>
-            <PlayArea cards={cards} handleGetPairs={handleGetPairs} />
+            <PlayArea
+                cards={cards}
+                handleGetPairs={handleGetPairs}
+                history={history}
+            />
             <Action>
                 <Button primary onClick={handleSortTrigger}>
                     New Game

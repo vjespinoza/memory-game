@@ -17,10 +17,7 @@ const usePlayGame = () => {
             if (!e.currentTarget.hasAttribute("data-visible")) {
                 setCurrentPair({
                     ...currentPair,
-                    cards: {
-                        ...currentPair.cards,
-                        b: e.currentTarget.dataset.tag,
-                    },
+                    cards: { ...currentPair.cards, b: e.currentTarget.dataset.tag },
                 });
                 e.currentTarget.setAttribute("data-visible", true); //May not be necessary
                 handleBlockedCards(e);
@@ -56,70 +53,58 @@ const usePlayGame = () => {
         }
     };
 
-    const handlePlayGame = () => {
-        let currentMatch = history[history.length - 1];
+    const handlePlayActions = () => {
+        let cards = Array.from(document.querySelectorAll("[id^='card']"));
 
         const removeAttribute = () => {
-            Array.from(document.querySelectorAll("[id^='card']")).map((x) => {
-                return (
-                    x.removeAttribute("data-hidden") &
-                    x.removeAttribute("data-visible")
-                );
-            });
-        };
-
-        const handleMatches = (match) => {
-            let style = `opacity: 0;
-                visibility: hidden;
-                transition: all ease-in-out 500ms;
-                `;
-            let visibleCards = Array.from(
-                document.querySelectorAll("[data-visible]")
-            );
-
-            visibleCards.map((x) => {
-                if (match) {
-                    setTimeout(() => {
-                        x.setAttribute("style", style);
-                        removeAttribute();
-                    }, 1000);
-                }
-                if (!match && visibleCards.length === 2) {
-                    setTimeout(() => {
-                        // Something
-                        x.setAttribute("unflip", true);
-                    }, 1000);
-                    setTimeout(() => {
-                        removeAttribute();
-                    }, 1500);
-                }
-
+            cards.map((x) => {
+                x.removeAttribute("data-hidden");
+                x.removeAttribute("data-visible");
                 return true;
             });
         };
 
-        if (history.length > 0 && !currentMatch.match) {
-            handleMatches(currentMatch.match);
-        } else if (history.length > 0 && currentMatch.match) {
-            handleMatches(currentMatch.match);
-        }
-    };
+        const removePairs = () => {
+            let styles = `
+            opacity: 0;
+            visibility: hidden;
+            transition: all ease-in-out 200ms;
+            transition-delay: 1000ms
+            `;
 
-    // **************************************
-    // 3) Attempts => history.lentgh
-    // **************************************
-    // 4) Remaining pairs =>
-    // (cards.length / 2) - (history.filter((x) => return x.match === true))
+            cards.map((x) => {
+                if (x.hasAttribute("data-visible")) {
+                    x.setAttribute("style", styles);
+                }
+                return true;
+            });
+        };
+
+        if (history[history.length - 1].match === true) {
+            removePairs();
+            removeAttribute();
+        } else {
+            setTimeout(() => {
+                removeAttribute();
+            }, 3000);
+        }
+
+        // **************************************
+        // 3) Attempts => history.lentgh
+        // **************************************
+        // 4) Remaining pairs =>
+        // (cards.length / 2) - (history.filter((x) => return x.match === true))
+    };
 
     useEffect(() => {
         currentPair.cards && handleMatchHistory();
     }, [currentPair]);
 
     useEffect(() => {
-        history.length > 0 && handlePlayGame();
+        history.length > 0 && handlePlayActions();
     }, [history]);
 
-    return { handleGetPairs, currentPair, history };
+    return { handleGetPairs, currentPair };
 };
 
 export default usePlayGame;

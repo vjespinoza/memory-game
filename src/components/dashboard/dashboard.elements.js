@@ -8,6 +8,7 @@ export const DashboardWrapper = styled(Wrapper)`
     width: 100vw;
     height: 100vh;
     padding-top: 8vh;
+    /* background: #fff; */
     background-image: linear-gradient(190deg, #b721ff 0%, #21d4fd 100%);
 `;
 
