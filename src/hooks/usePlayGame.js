@@ -105,12 +105,6 @@ const usePlayGame = () => {
         }
     };
 
-    // **************************************
-    // 3) Attempts => history.lentgh
-    // **************************************
-    // 4) Remaining pairs =>
-    // (cards.length / 2) - (history.filter((x) => return x.match === true))
-
     useEffect(() => {
         currentPair.cards && handleMatchHistory();
     }, [currentPair]);

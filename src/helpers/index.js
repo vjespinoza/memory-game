@@ -9,13 +9,17 @@ export const sortCards = (arr) => {
     return arr;
 };
 
+//Gameplay timer
+
+let playTime;
+
 export const timer = (state, func) => {
     let HH = 0;
     let MM = 0;
     let SS = 0;
     let count = state;
 
-    setTimeout(() => {
+    playTime = setTimeout(() => {
         func((state) => state + 1);
     }, 1000);
 
@@ -30,4 +34,8 @@ export const timer = (state, func) => {
     };
 
     return time;
+};
+
+export const stopTimer = () => {
+    clearTimeout(playTime);
 };

@@ -15,8 +15,6 @@ const PlayArea = ({ cards, handleGetPairs, history }) => {
         setTime(timer(timeCounter, setTimeCounter));
     }, [timeCounter]);
 
-    console.log(time);
-
     return (
         <PlayWrapper>
             <GameInfo>
