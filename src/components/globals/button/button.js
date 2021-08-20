@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Button = styled.button`
     display: inline-block;
     text-transform: uppercase;
-    background-color: ${(props) => (props.primary ? props.theme.colors.primary : "#fff")};
+    background-color: ${(props) =>
+        props.primary ? props.theme.colors.primary : "#fff"};
     padding: 0.8rem 1rem;
     border-radius: 3px;
     max-width: 100%;
@@ -11,10 +12,10 @@ export const Button = styled.button`
     border: none;
     color: ${(props) => (props.primary ? "#fff" : props.theme.colors.primary)};
     font-weight: 700;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     cursor: pointer;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    margin: 0 auto;
+    margin: ${(props) => (props.noMargin ? 0 : "0 auto")};
     align-self: flex-start;
 
     &:focus,

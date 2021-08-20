@@ -8,6 +8,8 @@ export const PlayWrapper = styled(Wrapper)`
     border-radius: 5px;
     background: #fff;
     box-shadow: ${(props) => props.theme.colors.shadow};
+    position: relative;
+    overflow: hidden;
 `;
 
 export const GameInfo = styled(Wrapper)`
@@ -18,11 +20,11 @@ export const GameInfo = styled(Wrapper)`
     font-size: 0.8rem;
     color: #fff;
     justify-content: space-between;
+    align-items: center;
 `;
 
 export const GameBoard = styled(Wrapper)`
     display: grid;
-    width: 705px;
     gap: 15px;
     grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
     width: 100%;

@@ -39,3 +39,9 @@ export const timer = (state, func) => {
 export const stopTimer = () => {
     clearTimeout(playTime);
 };
+
+// Togle High Scores
+
+export const handleToggleHighScore = (state, func) => {
+    func((state) => !state);
+};
