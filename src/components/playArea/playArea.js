@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PlayWrapper, GameInfo, GameBoard } from "./playArea.elements";
 import { Button } from "../globals/button/button";
 import BestScores from "../bestScores/bestScores";
+import WelcomeScreen from "../welcomeScreen/welcomeScreen";
 import Card from "../card/card";
 import { timer, handleToggleHighScore } from "../../helpers";
 
@@ -24,6 +25,7 @@ const PlayArea = ({ cards, handleGetPairs, history, highScores }) => {
                 highScores={highScores}
                 toggleHighScore={toggleHighScore}
             />
+            <WelcomeScreen />
 
             <GameInfo>
                 <h3>
